@@ -1,59 +1,80 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link href="/src/style.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>weather-webapp</title>
+    <title>Weather Application | Your Daily Outlook</title>
   </head>
-  <body>
-    <div id="app">
-      <header class="text-center flex gap-4 flex-col bg-gray-100 p-4">
-        <div>
-          <h1 class="text-3xl font-bold text-blue-500">Weather Application</h1>
-          <p class="text-gray-500 text-xs font-light">
+  <body class="min-h-full bg-gradient-to-br  text-slate-800 flex flex-col font-sans antialiased selection:bg-blue-500 selection:text-white">
+
+    <header class="w-full bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-200/80 sticky top-0 z-50 transition-all">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        
+        <div class="text-center sm:text-left">
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center sm:justify-start gap-2">
+            <svg class="w-7 h-7 fill-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+              <path d="M0 336C0 278.4 46.4 232 104 232C118.8 232 132.8 235.6 145.4 242.1C168.1 190.2 220.8 152 282.7 152C358.3 152 420.2 209.6 426.6 283.6C435.5 280.6 445 279 454.8 279C512.4 279 558.8 325.4 558.8 383C558.8 440.6 512.4 487 454.8 487H131.2C58.7 487 0 428.3 0 355.8V336Z"/>
+            </svg>
+            Weather App
+          </h1>
+          <p class="text-slate-400 text-xs font-medium uppercase tracking-wider mt-0.5">
             Your daily outlook, at a glance.
           </p>
         </div>
-        <label class="flex gap-2 justify-center items-center" for="search">
-          <svg
-            class="size-6 fill-blue-600"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 640 640"
-          >
-            <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
-            <path
-              d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z"
-            />
-          </svg>
+
+        <label class="flex items-center gap-2 w-full sm:w-auto bg-slate-100/80 p-1.5 rounded-full border border-slate-200 focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 transition-all shadow-inner" for="search">
+          <span class="pl-3 text-slate-400">
+            <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.1-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+            </svg>
+          </span>
           <input
             id="search"
             type="text"
-            placeholder="search by city"
-            class="border border-blue-600 rounded-2xl p-2"
+            placeholder="Search by city (e.g. Nador, Rabat)..."
+            class="bg-transparent border-none outline-none text-sm text-slate-700 placeholder-slate-400 px-2 py-1 w-full sm:w-64"
           />
           <button
             id="sub"
-            class="bg-blue-500 text-white px-4 py-2 rounded-2xl cursor-pointer hover:bg-blue-700"
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold px-5 py-2 rounded-full shadow-md shadow-blue-500/25 hover:from-blue-700 hover:to-indigo-700 active:scale-95 cursor-pointer transition-all"
           >
-            search
+            Search
           </button>
         </label>
-      </header>
-    </div>
+      </div>
+    </header>
 
-    <h1 class=" text-center  pt-4 text-4xl underline">Today's Weather</h1>
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8 flex flex-col gap-10">
+      
+      <section aria-labelledby="today-heading" class="flex flex-col items-center">
+        <h2 id="today-heading" class="text-slate-800 text-2xl sm:text-3xl font-bold tracking-tight mb-6 flex items-center gap-3">
+          <span class="w-2 h-8 bg-blue-600 rounded-full inline-block"></span>
+          Today's Weather
+        </h2>
+        <div id="today" class="w-full flex justify-center">
+          <!-- Dynamic card injected via createWeatherCard will appear here -->
+        </div>
+      </section>
 
-    <div id="today">
+      <hr class="border-slate-200/80 my-2">
 
-    </div>
+      <section aria-labelledby="forecast-heading" class="flex flex-col">
+        <h2 id="forecast-heading" class="text-slate-800 text-xl sm:text-2xl font-bold tracking-tight mb-6 flex items-center gap-3">
+          <span class="w-2 h-8 bg-indigo-600 rounded-full inline-block"></span>
+          The Other 5 Days Forecast
+        </h2>
+        <div id="weeklyWeather" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
+      </section>
 
+    </main>
 
-    <h1 class=" text-center text-3xl underline text-blue-500">The other 5 days forcast</h1>
-    <section id="weeklyWeather" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-     
-    </section>
+    <footer class="bg-white/60 border-t border-slate-200 py-6 text-center text-slate-400 text-xs">
+      <p>© 2026 Weather Application. Powered by Open-Meteo & Tailwind CSS.</p>
+    </footer>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
