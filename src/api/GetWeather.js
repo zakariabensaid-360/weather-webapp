@@ -9,3 +9,4 @@ export async function getWeather(x, y) {
   }
   throw "failed to fetch data"
 }
+
