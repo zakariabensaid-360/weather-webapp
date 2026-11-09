@@ -1,9 +1,9 @@
 export function createWeatherCard(data) {
   const main = document.createElement('article');
-  main.className = 'flex flex-col justify-center items-center w-full';
+  main.className = 'flex flex-col justify-center  items-center w-full';
   
   const header = document.createElement('div');
-  header.className = 'relative overflow-hidden bg-white/80 backdrop-blur-xl shadow-xl shadow-slate-200/50 p-6 sm:p-8 border border-white/60 rounded-3xl w-full max-w-md flex justify-between items-center transition-all duration-300 hover:shadow-2xl hover:border-blue-200';
+  header.className = 'relative overflow-hidden bg-white/80 backdrop-blur-xl shadow-xl shadow-slate-200/50 p-6 sm:p-8 border  rounded-3xl w-full max-w-md flex justify-between items-center transition-all duration-300  hover:shadow-2xl border-black';
   
   const glowBg = document.createElement('div');
   glowBg.className = 'absolute -right-10 -bottom-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-indigo-400/20 rounded-full blur-2xl pointer-events-none';
