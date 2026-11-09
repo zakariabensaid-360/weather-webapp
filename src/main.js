@@ -1,5 +1,6 @@
 import { getWeather } from "./api/GetWeather";
 import { createWeatherCard } from "./utilities/createWeatherCard";
+import { createWeatherCardSkeleton } from "./utilities/createWeatherCardSkeleton";
 
 const cities = [
   { name: "Casablanca", latitude: 33.5992, longitude: -7.6200 },
@@ -61,10 +62,7 @@ const search = document.getElementById("search");
 
 const today = document.getElementById("today");
 const weeklyWeather = document.getElementById("weeklyWeather");
-const todayLocation = document.getElementById("today-location");
-const todayTempetor = document.getElementById("today-tempetor");
-const todayDate = document.getElementById("today-date");
-const todayStatus = document.getElementById("today-status");
+
 
 sub.addEventListener("click", async () => {
   const resultCity = cities.find(
@@ -78,9 +76,13 @@ sub.addEventListener("click", async () => {
     return;
   }
   try {
-    today.textContent = "Loading...";
+    today.append(createWeatherCardSkeleton())
+    for (let i = 0; i < 5; i++) {
+      weeklyWeather.append(createWeatherCardSkeleton())
+    }
     let data = await getWeather(resultCity.latitude, resultCity.longitude);
     today.replaceChildren();
+    weeklyWeather.replaceChildren();
     let todayTemp = data.daily.temperature_2m_max[0];
     let todayDat = data.daily.time[0];
 
