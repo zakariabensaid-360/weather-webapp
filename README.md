@@ -93,6 +93,24 @@ The function returns the JSON response from Open-Meteo, including forecast field
 - `daily.weather_code`
 - `current.rain`
 
+## Usage of the GetCity API
+
+The city lookup logic lives in `src/api/GetCity.js`.
+
+### Function signature
+
+```js
+GetCity(city)
+````
+### What it returns
+
+The function returns the JSON response from Open-Meteo, including forecast fields such as:
+
+- `city.name`
+- `city.latitude`
+- `city.longitude`
+
+
 Example usage:
 
 ```js
