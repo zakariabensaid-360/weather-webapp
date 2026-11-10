@@ -41,6 +41,7 @@ const today = document.getElementById("today");
 const weeklyWeather = document.getElementById("weeklyWeather");
 
 sub.addEventListener("click", async () => {
+  if(search.value == "") return;
   try {
     today.replaceChildren();
     weeklyWeather.replaceChildren();
