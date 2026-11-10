@@ -1,4 +1,4 @@
-A lightweight, zero-dependency weather web application built with vanilla JavaScript, HTML5, CSS3, and the Open-Meteo API. The project is designed to be simple, fast, and easy to run locally while providing a quick weather overview for selected cities.
+A lightweight, zero-dependency weather web application built with vanilla JavaScript, HTML5, CSS3, and the Open-Meteo API. The project is designed to be simple, fast, and easy to run locally while focusing on client-side weather lookup.
 
 ## Overview
 
@@ -28,8 +28,9 @@ weather-webapp/
 │   └── icons.svg
 ├── src/
 │   ├── api/
+│   │   ├── GetCity.js
 │   │   └── GetWeather.js
-│   ├── assets/
+│   ���── assets/
 │   ├── utilities/
 │   │   └── createWeatherCard.js
 │   ├── main.js
@@ -135,6 +136,90 @@ export async function getWeather(x, y) {
   }
 
   throw "failed to fetch data";
+}
+```
+
+## Usage of the GetCity API
+
+The city lookup logic lives in `src/api/GetCity.js`.
+
+### Function signature
+
+```js
+GetCity(cityName)
+```
+
+### Example
+
+```js
+import { GetCity } from './api/GetCity.js';
+
+const city = await GetCity('Casablanca');
+console.log(city);
+```
+
+This sends a request to the Open-Meteo geocoding API to search for the requested city and then filters the results to cities in Morocco.
+
+### What it returns
+
+The function returns an object with the first matching Moroccan city that is found, containing:
+
+- `name`
+- `latitude`
+- `longitude`
+
+Example result:
+
+```js
+{
+  name: 'Casablanca',
+  latitude: 33.5731,
+  longitude: -7.5898,
+}
+```
+
+### API request details
+
+The function builds a URL similar to:
+
+```text
+https://geocoding-api.open-meteo.com/v1/search?name=Casablanca&count=10&language=en&format=json
+```
+
+It then calls `fetch()` and:
+
+- waits up to 5 seconds using `AbortSignal.timeout(5000)`
+- parses the JSON response
+- checks each result and keeps only entries where `country_code === "MA"`
+- returns the first Moroccan match found
+- throws an error if no city in Morocco matches the search
+
+### Source
+
+```js
+export async function GetCity(city) {
+  const response = await fetch(
+    `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=10&language=en&format=json`,
+    {
+      signal: AbortSignal.timeout(5000),
+    },
+  );
+
+  if (response.ok) {
+    const data = await response.json();
+
+    for (let i = 0; i < data.results.length; i++) {
+      if (data.results[i].country_code == 'MA') {
+        return {
+          name: data.results[i].name,
+          latitude: data.results[i].latitude,
+          longitude: data.results[i].longitude,
+        };
+      }
+    }
+  }
+
+  throw "The city you are looking dont exists in morroco";
 }
 ```
 
