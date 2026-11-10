@@ -83,7 +83,7 @@ sub.addEventListener("click", async () => {
     let data = await getWeather(resultCity.latitude, resultCity.longitude);
     today.replaceChildren();
     weeklyWeather.replaceChildren();
-    let todayTemp = data.daily.temperature_2m_max[0];
+    let todayTemp = data.daily.temperature_2m_mean[0];
     let todayDat = data.daily.time[0];
 
     const weatherCard = createWeatherCard({
@@ -95,8 +95,8 @@ sub.addEventListener("click", async () => {
     });
     today.appendChild(weatherCard);
 
-    for (let i = 1; i < data.daily.temperature_2m_max.length; i++) {
-      let dt = data.daily.temperature_2m_max[i];
+    for (let i = 1; i < data.daily.temperature_2m_mean.length; i++) {
+      let dt = data.daily.temperature_2m_mean[i];
       let td = data.daily.time[i];
       const weatherCardW = createWeatherCard({
         location: resultCity.name + `, Morocco`,
