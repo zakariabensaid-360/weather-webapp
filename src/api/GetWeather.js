@@ -3,10 +3,9 @@ export async function getWeather(x, y) {
   const res = await fetch(baseURL, {
     signal: AbortSignal.timeout(5000),
   });
-  if (res.status == 200) {
+  if (res.ok) {
     const data = await res.json();
     return data;
   }
   throw "failed to fetch data"
 }
-
