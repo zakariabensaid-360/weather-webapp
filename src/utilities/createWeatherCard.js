@@ -46,10 +46,10 @@ export function createWeatherCard(data) {
   const rightCol = document.createElement('div');
   rightCol.className = 'flex flex-col items-center justify-center pl-4 z-10';
 
-  const codeEl = document.createElement('span');
+  const codeEl = document.createElement('i');
   codeEl.id = 'today-code';
-  codeEl.className = 'text-4xl sm:text-5xl p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100/60 shadow-inner flex items-center justify-center';
-  codeEl.textContent = `${data.weatherCode}`;
+  // codeEl.className = 'text-4xl sm:text-5xl p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100/60 shadow-inner flex items-center justify-center';
+  codeEl.classList = `${data.weatherCode} fa-5x`;
 
   rightCol.appendChild(codeEl);
 
