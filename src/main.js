@@ -86,17 +86,19 @@ sub.addEventListener("click", async () => {
       weeklyWeather.append(createWeatherCardSkeleton());
     }
     let data = await getWeather(resultCity.latitude, resultCity.longitude);
+    console.log(data)
     today.replaceChildren();
     weeklyWeather.replaceChildren();
     let todayTemp = data.daily.temperature_2m_mean[0];
     let todayDat = data.daily.time[0];
-
+    let todayWind = data.daily.wind_speed_10m_max[0]
     const weatherCard = createWeatherCard({
       location: resultCity.name + `, Morocco`,
       date: todayDat,
       temp: todayTemp + "°C",
       status: WEATHER_CODES[data.daily.weather_code[0]].label,
       weatherCode: WEATHER_CODES[data.daily.weather_code[0]].icon,
+      wind: todayWind
     });
     today.appendChild(weatherCard);
 
@@ -109,6 +111,7 @@ sub.addEventListener("click", async () => {
         temp: dt + "°C",
         status: WEATHER_CODES[data.daily.weather_code[i]].label,
         weatherCode: WEATHER_CODES[data.daily.weather_code[i]].icon,
+        wind: data.daily.wind_speed_10m_max[i]
       });
 
       weeklyWeather.append(weatherCardW);
