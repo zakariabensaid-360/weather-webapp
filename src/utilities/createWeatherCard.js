@@ -38,7 +38,7 @@ export function createWeatherCard(data) {
   const statusEl = document.createElement('span');
   statusEl.id = 'today-status';
   statusEl.className = 'text-blue-600 font-semibold text-sm mt-1';
-  statusEl.textContent = data.status;
+  statusEl.textContent = data.status + " " + data.wind + `km/h`;
 
   tempStatusBox.append(tempEl, statusEl);
   leftCol.append(locationDateBox, tempStatusBox);
